@@ -14,8 +14,10 @@ async function index(req, res) {
 }
 
 async function show(req, res) {
-  const movie = await Movie.findById(req.params.id);
-  res.render('movies/show', { title: 'Movie Detail', movie });
+  const movie = await Movie.findById(req.params.id).populate('cast');
+  const performers = await Performer.find({_id: { $nin: movie.cast } }).sort('name')
+  console.log(performers)
+  res.render('movies/show', { title: 'Movie Detail', movie, performers });
 }
 
 function newMovie(req, res) {
