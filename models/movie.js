@@ -24,7 +24,7 @@ const movieSchema = new Schema({
     default: function() {
       return new Date().getFullYear();
     },
-    min: 1927
+    min: 0
   },
   mpaaRating: {
     type: String,

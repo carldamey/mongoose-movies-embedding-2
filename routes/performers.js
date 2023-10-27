@@ -4,6 +4,8 @@ const performersCtrl = require('../controllers/performers');
 
 // This router is mounted to a "starts with" path of '/'
 
+
+router.post('/movies/:id/performers', performersCtrl.addToCast);
 // GET /performers/new (new functionality)
 router.get('/performers/new', performersCtrl.new);
 // POST /performers (create functionality)

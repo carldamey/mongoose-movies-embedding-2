@@ -19,13 +19,13 @@
   <!-- end cast list -->
 </section>
 <!-- add to cast form below this comment -->
-<form id="add-per-to-cast" action="/movies/<%= movie._id %>" method="POST">
+<form id="add-per-to-cast" action="/movies/<%= movie._id %>/performers" method="POST">
   <select name="performerId">
-    <% performers.map(performer =>
-    `<option value="${performer.id}"${performer.name}</option>`
+    <%- performers.map(performer =>
+    `<option value="${performer.id}">${performer.name}</option>`
     ).join('') %>
   </select>
-
+  <button type="submit">Add to Cast</button>
 </form>
 <br><br><h2>Reviews</h2>
 <form id="add-review-form" method="POST"
