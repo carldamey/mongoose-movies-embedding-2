@@ -1,4 +1,5 @@
 const Movie = require('../models/movie');
+const Performer = require('../models/performer')
 
 module.exports = {
   index,
@@ -24,6 +25,7 @@ function newMovie(req, res) {
 }
 
 async function create(req, res) {
+  console.log("create called", req._id)
   // convert nowShowing's checkbox of nothing or "on" to boolean
   req.body.nowShowing = !!req.body.nowShowing;
   // Remove empty properties so that defaults will be applied
@@ -31,13 +33,14 @@ async function create(req, res) {
     if (req.body[key] === '') delete req.body[key];
   }
   try {
-    await Movie.create(req.body);
+    const newMovie = await Movie.create(req.body);
+    console.log(newMovie._id.valueOf())
     // Always redirect after CUDing data
     // We'll refactor to redirect to the movies index after we implement it
-    res.redirect('/movies');  // Update this line
+    res.redirect(`/movies/${newMovie._id}`);  // Update this line
   } catch (err) {
     // Typically some sort of validation error
     console.log(err);
-    res.render('movies/new', { errorMsg: err.message });
+    res.render('/movies/new', { errorMsg: err.message });
   }
 }

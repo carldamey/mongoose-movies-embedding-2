@@ -10,7 +10,12 @@
   <div>Now Showing: </div>
   <div><%= movie.nowShowing ? 'Yes' : 'Nope' %></div>
   <!-- start cast list -->
-
+<div>Cast:</div>
+<ul>
+  <%- movie.cast.map(performer =>
+  `<li>${performer.name}</li> <small>${performer.born.toLocaleDateString()}</small>`
+  ).join('') %> 
+</ul>
   <!-- end cast list -->
 </section>
 <!-- add to cast form below this comment -->
@@ -41,7 +46,9 @@
       </tr>
     </thead>
     <tbody>
+      <% let total = 0 %>
       <% movie.reviews.forEach(function(r) { %>
+        <% total += r.rating %>
         <tr>
           <!-- .toLocaleDateString() provides a more friendly date format -->
           <td><%= r.createdAt.toLocaleDateString() %></td>
@@ -49,6 +56,10 @@
           <td><%= r.rating %></td>
         </tr>
       <% }); %>
+      <tr>
+        <td colspan="2"></td>
+        <td><strong><%= (total / movie.reviews.length).toFixed(1) %></strong></td>
+      </tr>    
     </tbody>
   </table>
 <% } else { %>
